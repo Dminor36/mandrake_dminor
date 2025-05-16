@@ -33,7 +33,7 @@ function spawnVisualMandrake(type) {
   const field = document.getElementById("field-area");
   const img = document.createElement("img");
   img.className = "mandrake-image";
-  img.src = `./images/${type}.png`;        // 👈👈👈 這就是你要找的那一行！
+  img.src = `/images/${type}.png`;        // 👈👈👈 這就是你要找的那一行！
   img.alt = mandrakes[type].name;
   img.style.left = Math.random() * 80 + 10 + "%";
   img.style.top = Math.random() * 80 + 10 + "%";
@@ -96,6 +96,8 @@ function buyMandrake(type) {
     updateMandrakeStats(type);
     updateUI();
 saveGame();
+
+spawnVisualMandrake(type);
 
     const tooltip = document.getElementById("tooltip");
     if (tooltip.style.display === "block") {
