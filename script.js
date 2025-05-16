@@ -34,7 +34,11 @@ function spawnVisualMandrake(type) {
   const img = document.createElement("img");
   img.className = "mandrake-image";
 
-  img.src = `/mandrake_dminor/images/${type}.png`;      
+ const isLocal = location.protocol === "file:";
+  img.src = isLocal
+    ? `images/${type}.png`
+    : `/mandrake_dminor/images/${type}.png`;
+    
   img.alt = mandrakes[type].name;
   img.style.left = Math.random() * 80 + 10 + "%";
   img.style.top = Math.random() * 80 + 10 + "%";
