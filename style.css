@@ -1,0 +1,86 @@
+/* style.css - 曼德拉草生產計畫的排版樣式 */
+
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f0e0;
+  color: #333;
+}
+
+#top-bar {
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+}
+
+#main {
+  display: flex;
+  height: calc(100vh - 140px); /* 扣除上方與下方高度 */
+}
+
+#sidebar-left {
+  width: 300px;
+  background-color: #fcf0dd;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 2px solid #ccc;
+}
+
+#sidebar-left h2 {
+  margin-top: 0;
+}
+
+.plant-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 16px 0;
+  padding: 8px 0;
+  border-bottom: 1px dashed #bbb;
+  white-space: nowrap;
+  gap: 10px;
+}
+
+.plant-row div {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plant-row button {
+  font-size: 12px;
+  padding: 6px 10px;
+  background-color: #fff8cc;
+  border: 1px solid #999;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#field-area {
+  flex-grow: 1;
+  padding: 20px;
+  background: linear-gradient(to top, #8ecf8d 0%, #d4f8d4 100%);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#bottom-menu {
+  background-color: #eee;
+  padding: 10px;
+  text-align: center;
+  border-top: 2px solid #ccc;
+}
+
+#bottom-menu button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
