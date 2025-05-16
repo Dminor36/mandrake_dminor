@@ -2,16 +2,72 @@
 let fruit = 100;
 
 const mandrakes = {
-  normal: { count: 0, cost: 10, production: 0.1 },
-  fire:   { count: 0, cost: 50, production: 0.5 },
-  cat:    { count: 0, cost: 100, production: 1.0 }
+  normal: {
+    count: 0,
+    baseCost: 10,
+    cost: 10,
+    baseProduction: 0.1,
+    production: 0.1,
+    costGrowth: 1.15,
+    prodGrowth: 1.05
+  },
+  fire: {
+    count: 0,
+    baseCost: 50,
+    cost: 50,
+    baseProduction: 0.5,
+    production: 0.5,
+    costGrowth: 1.20,
+    prodGrowth: 1.07
+  },
+  cat: {
+    count: 0,
+    baseCost: 100,
+    cost: 100,
+    baseProduction: 1.0,
+    production: 1.0,
+    costGrowth: 1.30,
+    prodGrowth: 1.10
+  }
 };
 
-// 稍後可用公式改為遞增成本
+// 更新成本與生產力（每次購買後依照各自成長率遞增）
+function updateMandrakeStats(type) {
+  const plant = mandrakes[type];
+  plant.cost = Math.floor(plant.baseCost * Math.pow(plant.costGrowth, plant.count));
+  plant.production = (plant.baseProduction * Math.pow(plant.prodGrowth, plant.count));
+}
+
 function updateCosts() {
-  document.getElementById("normal-button").innerText = `種植（${mandrakes.normal.cost}）`;
-  document.getElementById("fire-button").innerText = `種植（${mandrakes.fire.cost}）`;
-  document.getElementById("cat-button").innerText = `種植（${mandrakes.cat.cost}）`;
+  for (const type in mandrakes) {
+    const button = document.getElementById(`${type}-button`);
+    button.innerText = `種植（${mandrakes[type].cost}）`;
+
+    button.onmousemove = (e) => showTooltip(e, type);
+    button.onmouseleave = hideTooltip;
+  }
+}
+
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+function showTooltip(event, type) {
+  lastMouseX = event.pageX;
+  lastMouseY = event.pageY;
+  const plant = mandrakes[type];
+  const nextProduction = plant.baseProduction * Math.pow(plant.prodGrowth, plant.count + 1);
+  const delta = nextProduction - plant.production;
+
+  const tooltip = document.getElementById("tooltip");
+  tooltip.style.display = "block";
+  tooltip.innerText = `升級後產量增加：約 +${delta.toFixed(2)} /秒`;
+  tooltip.style.left = event.pageX + 10 + "px";
+  tooltip.style.top = event.pageY + 10 + "px";
+}
+
+function hideTooltip() {
+  const tooltip = document.getElementById("tooltip");
+  tooltip.style.display = "none";
 }
 
 // 種植函式
@@ -20,7 +76,16 @@ function buyMandrake(type) {
   if (fruit >= plant.cost) {
     fruit -= plant.cost;
     plant.count++;
+    updateMandrakeStats(type);
     updateUI();
+
+    // 立即更新 tooltip
+    const tooltip = document.getElementById("tooltip");
+    if (tooltip.style.display === "block") {
+      // 模擬一個滑鼠事件來更新位置與內容
+      const fakeEvent = { pageX: lastMouseX, pageY: lastMouseY };
+      showTooltip(fakeEvent, type);
+    }
   } else {
     alert("果實不足！");
   }
