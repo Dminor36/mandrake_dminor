@@ -33,7 +33,8 @@ function spawnVisualMandrake(type) {
   const field = document.getElementById("field-area");
   const img = document.createElement("img");
   img.className = "mandrake-image";
-  img.src = `/images/${type}.png`;        // 👈👈👈 這就是你要找的那一行！
+
+  img.src = `/mandrake_dminor/images/${type}.png`;      
   img.alt = mandrakes[type].name;
   img.style.left = Math.random() * 80 + 10 + "%";
   img.style.top = Math.random() * 80 + 10 + "%";
