@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>曼德拉草生產計畫</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="top-bar">輪播文字區　（未使用JS）</div>
+
+  <div id="main">
+    <div id="sidebar-left">
+      <h2>果園名稱</h2>
+      <p>每秒生產率：<span id="production-rate">0.0</span> 果實</p>
+      <h3>曼德拉草總覽</h3>
+
+      <div class="plant-row">
+        <div>
+          <div>普通曼德拉草：<span id="normal-count">0</span> 株</div>
+          <div>產量：<span id="normal-production">0.0</span>/秒</div>
+        </div>
+        <button id="normal-button" onclick="buyMandrake('normal')">種植（10）</button>
+      </div>
+
+      <div class="plant-row">
+        <div>
+          <div>火曼德拉草：<span id="fire-count">0</span> 株</div>
+          <div>產量：<span id="fire-production">0.0</span>/秒</div>
+        </div>
+        <button id="fire-button" onclick="buyMandrake('fire')">種植（50）</button>
+      </div>
+
+      <div class="plant-row">
+        <div>
+          <div>貓曼德拉草：<span id="cat-count">0</span> 株</div>
+          <div>產量：<span id="cat-production">0.0</span>/秒</div>
+        </div>
+        <button id="cat-button" onclick="buyMandrake('cat')">種植（100）</button>
+      </div>
+
+      <p>果實數量：<span id="fruit">0.0</span></p>
+    </div>
+
+    <div id="field-area">
+      <p>地圖顯示區 (後續改成圖片)</p>
+      <p>現有曼德拉草：<span id="mandrakes">0</span> 株</p>
+    </div>
+  </div>
+
+  <div id="bottom-menu">
+    <button>設定</button>
+    <button>成就</button>
+    <button>圖鑑</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
