@@ -31,6 +31,29 @@ const mandrakes = {
   }
 };
 
+function saveGame() {
+  const saveData = {
+    fruit,
+    mandrakes: {
+      normal: mandrakes.normal.count,
+      fire: mandrakes.fire.count,
+      cat: mandrakes.cat.count
+    }
+  };
+  localStorage.setItem("mandrakeSave", JSON.stringify(saveData));
+}
+
+function loadGame() {
+  const save = JSON.parse(localStorage.getItem("mandrakeSave"));
+  if (save) {
+    fruit = save.fruit ?? 0;
+    for (const type in save.mandrakes) {
+      mandrakes[type].count = save.mandrakes[type];
+      updateMandrakeStats(type);
+    }
+  }
+}
+
 // 更新成本與生產力（每次購買後依照各自成長率遞增）
 function updateMandrakeStats(type) {
   const plant = mandrakes[type];
@@ -78,11 +101,10 @@ function buyMandrake(type) {
     plant.count++;
     updateMandrakeStats(type);
     updateUI();
+    saveGame();
 
-    // 立即更新 tooltip
     const tooltip = document.getElementById("tooltip");
     if (tooltip.style.display === "block") {
-      // 模擬一個滑鼠事件來更新位置與內容
       const fakeEvent = { pageX: lastMouseX, pageY: lastMouseY };
       showTooltip(fakeEvent, type);
     }
@@ -99,6 +121,7 @@ setInterval(() => {
   }
   fruit += totalProduction;
   updateUI();
+  saveGame();
 }, 1000);
 
 // 更新畫面顯示
@@ -124,5 +147,6 @@ function updateUI() {
   updateCosts();
 } 
 
-// 預設啟動畫面
+// 啟動時載入並更新畫面
+loadGame();
 updateUI();
